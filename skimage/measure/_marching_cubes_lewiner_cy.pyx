@@ -963,6 +963,7 @@ def marching_cubes(float[:, :, :] im not None, double isovalue,
     cdef int Nx_bound, Ny_bound, Nz_bound
     Nx_bound, Ny_bound, Nz_bound = Nx - 2 * st, Ny - 2 * st, Nz - 2 * st  # precalculated index range
 
+    first_run = True
     z = -st
     while z < Nz_bound:
         z += st
@@ -980,7 +981,9 @@ def marching_cubes(float[:, :, :] im not None, double isovalue,
                 x_st = x + st
                 if no_mask or mask[z_st, y_st, x_st]:
                     # Initialize cell
-                    print(im[z ,y, x])
+                    if first_run:
+                        print('using custom marching cubes!!')
+                        first_run = False
                     if (im[z ,y, x] > -1)  & (im[z ,y, x_st] > -1)  & (im[z,y_st, x_st] > -1)  & \
                         (im[z ,y_st, x] > -1)  & (im[z_st ,y, x] > -1)  & \
                             (im[z_st ,y, x_st] > -1)  & (im[z_st ,y_st, x_st] > -1)  & \
