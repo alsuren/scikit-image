@@ -169,6 +169,7 @@ def _marching_cubes_lewiner(volume, level, spacing, gradient_direction,
         raise ValueError('step_size must be at least one.')
     # use_classic
     use_classic = bool(use_classic)
+    # extact single mesh
     single_mesh = bool(single_mesh)
 
     # Get LutProvider class (reuse if possible)
