@@ -980,9 +980,16 @@ def marching_cubes(float[:, :, :] im not None, double isovalue,
                 x_st = x + st
                 if no_mask or mask[z_st, y_st, x_st]:
                     # Initialize cell
-                    cell.set_cube(isovalue, x, y, z, st,
-                        im[z   ,y, x], im[z   ,y, x_st], im[z   ,y_st, x_st], im[z   ,y_st, x],
-                        im[z_st,y, x], im[z_st,y, x_st], im[z_st,y_st, x_st], im[z_st,y_st, x] )
+                    print(im[z ,y, x])
+                    if (im[z ,y, x] > -1)  & (im[z ,y, x_st] > -1)  & (im[z,y_st, x_st] > -1)  & \
+                        (im[z ,y_st, x] > -1)  & (im[z_st ,y, x] > -1)  & \
+                            (im[z_st ,y, x_st] > -1)  & (im[z_st ,y_st, x_st] > -1)  & \
+                            (im[z_st ,y_st,x] > -1):
+                        cell.set_cube(isovalue, x, y, z, st,
+                            im[z   ,y, x], im[z   ,y, x_st], im[z   ,y_st, x_st], im[z   ,y_st, x],
+                            im[z_st,y, x], im[z_st,y, x_st], im[z_st,y_st, x_st], im[z_st,y_st, x])
+                    else:
+                        continue
 
                     # Do classic!
                     if classic:
